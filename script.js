@@ -82,7 +82,6 @@ function createTicket(ticketColor, ticketHeading, ticketId, ticketDesc) {
   mainCont.appendChild(ticketCont);
 
   handleRemove(ticketCont);
-  handleFilter(ticketColor);
 }
 
 //Selecting Remove Button
