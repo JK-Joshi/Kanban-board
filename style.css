@@ -218,6 +218,7 @@ body {
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  /* background-color: #f0f0f0; */
   /* border: 2px solid black; */
   /* overflow-y: scroll; */
   /* overflow: hidden; */
@@ -228,19 +229,19 @@ body {
   /* position: absolute; */
   height: 18rem;
   width: 18rem;
-  background-color: #6499e9;
-  opacity: 70%;
+  background-color: #f0f0f0;
+  /* opacity: 70%; */
 }
 
 .ticket-id {
   height: 2rem;
-  border-bottom: 2px solid #e5c3a6;
+  border-bottom: 2px solid #2e4374;
   /* width: 100%; */
 }
 
 .ticket-heading {
   height: 3rem;
-  border-bottom: 2px solid #e5c3a6;
+  border-bottom: 2px solid #2e4374;
 }
 
 .active {
