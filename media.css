@@ -31,6 +31,20 @@
     display: none;
   }
 
+  .task-btn > * {
+    width: 50%;
+    text-align: center;
+    color: white;
+    /* padding-top: 2px; */
+  }
+
+  .task-btn > *:hover {
+    background-color: #4b527e;
+    color: #e5c3a6;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px black;
+  }
+
   .toolBox-btn-cont {
     height: 20rem;
     width: 6rem;
@@ -48,6 +62,29 @@
     text-align: center;
     padding-top: 0.4rem;
     font-size: 0.8rem;
+  }
+
+  .color:hover {
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px black;
+  }
+
+  .Lightpink {
+    background-color: lightpink;
+  }
+
+  .Lightgreen {
+    background-color: lightgreen;
+  }
+
+  .Lightblue {
+    background-color: lightblue;
+  }
+
+  .Blue {
+    background-color: #6499e9;
   }
 
   .text-cont > * {
@@ -75,7 +112,7 @@
     /* position: absolute; */
     height: 14rem;
     width: 14rem;
-    background-color: #e5d283;
+    background-color: #f0f0f0;
     opacity: 70%;
   }
 }
@@ -117,5 +154,21 @@
     font-size: 1rem;
     background-color: #7c81ad;
     color: white;
+  }
+
+  .Lightpink {
+    background-color: lightpink;
+  }
+
+  .Lightgreen {
+    background-color: lightgreen;
+  }
+
+  .Lightblue {
+    background-color: lightblue;
+  }
+
+  .Blue {
+    background-color: #6499e9;
   }
 }
