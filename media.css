@@ -166,7 +166,7 @@
     background-color: #4b527e;
     position: absolute;
     top: 30%;
-    left: 31%;
+    left: 28%;
     display: none;
     z-index: 1;
     opacity: 95%;
@@ -194,5 +194,21 @@
 
   .Blue {
     background-color: #6499e9;
+  }
+
+  .ticket-main-cont {
+    height: 90vh;
+    padding-left: 10rem;
+    padding-top: 5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    /* background-color: #f0f0f0; */
+    /* border: 2px solid black; */
+    /* overflow-y: scroll; */
+    /* overflow: hidden; */
+    gap: 2rem;
+    margin-left: -20%;
   }
 }
