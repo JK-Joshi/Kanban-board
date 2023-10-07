@@ -12,6 +12,8 @@ let checkbox = document.getElementById("check");
 let toolBoxCont = document.querySelector(".toolBox-cont");
 let iconBars = document.querySelector(".fa-solid");
 
+let activeDltBtn = document.querySelector(".active-dlt-btn");
+
 let taskNumber = 0;
 
 let removeFlag = false;
@@ -109,13 +111,14 @@ removeBtn.addEventListener("click", (event) => {
     //Change color button to RED
     removeBtn.style.color = "red";
     removeBtn.style.backgroundColor = "#4b527e";
+    activeDltBtn.style.display = "block";
   } else {
     removeBtn.style.color = "white";
     removeBtn.style.backgroundColor = "#7c81ad";
+    activeDltBtn.style.display = "none";
   }
 
   if (checkbox.checked == true) {
-    console.log("not Checked");
     toolBoxCont.style.marginLeft = "-100%";
     checkbox.checked = !checkbox.checked;
   }

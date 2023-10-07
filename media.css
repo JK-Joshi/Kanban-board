@@ -134,6 +134,24 @@
 
   .content > label > i {
     display: block;
+    position: fixed;
+  }
+
+  .active-dlt-btn {
+    display: none;
+    /* border: 2px solid black; */
+    color: red;
+    font-size: 1.2rem;
+    margin-left: -16rem;
+    margin-top: -5rem;
+  }
+
+  .active-dlt-btn > span {
+    display: block;
+    /* border: 2px solid black; */
+    color: red;
+    font-size: 0.8rem;
+    margin-left: -1.8rem;
   }
 
   #check:checked ~ .toolBox-cont {
@@ -156,7 +174,7 @@
     text-shadow: 1px 1px 1px black;
     position: fixed;
     top: 0;
-    left: 27%;
+    left: 30%;
     z-index: 1;
   }
 
