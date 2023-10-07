@@ -142,6 +142,10 @@ body {
   z-index: 1;
 }
 
+.active-dlt-btn {
+  display: none;
+}
+
 .modal-cont {
   width: 40vw;
   height: 50vh;
