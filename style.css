@@ -15,6 +15,18 @@ body {
   display: flex;
 }
 
+.content > label > i {
+  display: none;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  z-index: 1;
+  color: black;
+  font-size: 1.5rem;
+  color: #7c81ad;
+  cursor: pointer;
+}
+
 .toolBox-cont {
   height: 100vh;
   width: 10rem;

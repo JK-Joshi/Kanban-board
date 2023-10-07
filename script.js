@@ -8,15 +8,20 @@ let mainCont = document.querySelector(".ticket-main-cont");
 let removeBtn = document.querySelector(".dlt-btn");
 let filterColor = document.querySelectorAll(".color");
 
+let checkbox = document.getElementById("check");
+let toolBoxCont = document.querySelector(".toolBox-cont");
+let iconBars = document.querySelector(".fa-solid");
+
 let taskNumber = 0;
 
-let modalFlag = false;
 let removeFlag = false;
 
 //Showing and Hiding Modal
+let modalFlag = false;
 addBtn.addEventListener("click", function (event) {
   modalFlag = !modalFlag;
 
+  console.log(modalFlag);
   if (modalFlag == true) {
     modalCont.style.display = "flex";
     modalColor.forEach((priorityColor) => {
@@ -24,6 +29,12 @@ addBtn.addEventListener("click", function (event) {
     });
   } else {
     modalCont.style.display = "none";
+  }
+
+  if (checkbox.checked == true) {
+    console.log("not Checked");
+    toolBoxCont.style.marginLeft = "-100%";
+    checkbox.checked = !checkbox.checked;
   }
 });
 
@@ -82,6 +93,7 @@ function createTicket(ticketColor, ticketHeading, ticketId, ticketDesc) {
   mainCont.appendChild(ticketCont);
 
   handleRemove(ticketCont);
+  // handleFilter(ticketColor);
 }
 
 //Selecting Remove Button
@@ -101,6 +113,12 @@ removeBtn.addEventListener("click", (event) => {
     removeBtn.style.color = "white";
     removeBtn.style.backgroundColor = "#7c81ad";
   }
+
+  if (checkbox.checked == true) {
+    console.log("not Checked");
+    toolBoxCont.style.marginLeft = "-100%";
+    checkbox.checked = !checkbox.checked;
+  }
 });
 
 //Remove the Ticket
@@ -112,5 +130,14 @@ function handleRemove(ticket) {
   });
 }
 
+checkbox.addEventListener("change", function () {
+  if (checkbox.checked == true) {
+    console.log("Checked");
+    toolBoxCont.style.marginLeft = "0";
+  } else {
+    console.log("not Checked");
+    toolBoxCont.style.marginLeft = "-100%";
+  }
+});
 //Filter Tickets by Color Catagory
 //Select Color
