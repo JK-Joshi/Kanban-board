@@ -146,13 +146,13 @@
     margin-top: -5rem;
   }
 
-/*   .active-dlt-btn > span {
+  .active-dlt-btn > span {
     display: block;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     color: red;
     font-size: 0.8rem;
     margin-left: -1.8rem;
-  } */
+  }
 
   #check:checked ~ .toolBox-cont {
     /* left: 0; */

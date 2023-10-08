@@ -7,17 +7,19 @@ let modalColorName = "Blue";
 let mainCont = document.querySelector(".ticket-main-cont");
 let removeBtn = document.querySelector(".dlt-btn");
 let filterColor = document.querySelectorAll(".color");
-
 let checkbox = document.getElementById("check");
 let toolBoxCont = document.querySelector(".toolBox-cont");
 let iconBars = document.querySelector(".fa-solid");
-
 let activeDltBtn = document.querySelector(".active-dlt-btn");
+let barsChange = document.querySelector(".bars");
 
 let taskNumber = 0;
+let bars = "fa-bars";
+let xMark = "fa-xmark";
+let lockIconClass = "fa-lock";
+let unclokIconClass = "fa-lock-open";
 
 let removeFlag = false;
-
 //Showing and Hiding Modal
 let modalFlag = false;
 addBtn.addEventListener("click", function (event) {
@@ -89,7 +91,9 @@ function createTicket(ticketColor, ticketHeading, ticketId, ticketDesc) {
 
   ticketCont.innerHTML = `<div class=" ${ticketColor} ticket-id">${ticketId}</div>
   <div class="ticket-heading">${ticketHeading}</div>
-  <div class="ticket-task">${ticketDesc}</div>`;
+  <div class="ticket-task">${ticketDesc}</div><div class="ticket-lock">
+  <i class="fa-solid fa-lock"></i>
+</div>`;
 
   // console.log(ticketCont);
   mainCont.appendChild(ticketCont);
@@ -137,10 +141,19 @@ checkbox.addEventListener("change", function () {
   if (checkbox.checked == true) {
     console.log("Checked");
     toolBoxCont.style.marginLeft = "0";
+    //remove bars
+    barsChange.classList.remove("fa-bars");
+    //Add Xmark
+    barsChange.classList.add("fa-xmark");
   } else {
     console.log("not Checked");
     toolBoxCont.style.marginLeft = "-100%";
+    //remove Xmark
+    barsChange.classList.remove("fa-xmark");
+    //Add bars
+    barsChange.classList.add("fa-bars");
   }
 });
+
 //Filter Tickets by Color Catagory
 //Select Color
