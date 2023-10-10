@@ -92,13 +92,14 @@ function createTicket(ticketColor, ticketHeading, ticketId, ticketDesc) {
   ticketCont.innerHTML = `<div class=" ${ticketColor} ticket-id">${ticketId}</div>
   <div class="ticket-heading">${ticketHeading}</div>
   <div class="ticket-task">${ticketDesc}</div><div class="ticket-lock">
-  <i class="fa-solid fa-lock"></i>
+  <i class="fa-lock fa-solid"></i>
 </div>`;
 
   // console.log(ticketCont);
   mainCont.appendChild(ticketCont);
 
   handleRemove(ticketCont);
+  handleLock(ticketCont);
   // handleFilter(ticketColor);
 }
 
@@ -155,5 +156,29 @@ checkbox.addEventListener("change", function () {
   }
 });
 
-//Filter Tickets by Color Catagory
-//Select Color
+//Make Heading area and Task area editable
+function handleLock(ticket) {
+  let ticketLockElement = ticket.querySelector(".ticket-lock");
+
+  let ticketLockIcon = ticketLockElement.children[0];
+
+  let taskArea = ticket.querySelector(".ticket-task");
+
+  ticketLockIcon.addEventListener("click", (event) => {
+    if (ticketLockIcon.classList.contains(lockIconClass)) {
+      //remove Lock icon class "fa-lock"
+      ticketLockIcon.classList.remove(lockIconClass);
+      //add unlock icon class "fa-lock-open"
+      ticketLockIcon.classList.add(unclokIconClass);
+      //Makr task area Editable
+      taskArea.setAttribute("contenteditable", "true");
+    } else {
+      //remove unlock icon class "fa-lock-opn"
+      ticketLockIcon.classList.remove(unclokIconClass);
+      //add Lock icon class "fa-lock"
+      ticketLockIcon.classList.add(lockIconClass);
+      //Makr task area Editable
+      taskArea.setAttribute("contenteditable", "false");
+    }
+  });
+}
