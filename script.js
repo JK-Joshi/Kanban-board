@@ -162,7 +162,13 @@ function handleLock(ticket) {
 
   let ticketLockIcon = ticketLockElement.children[0];
 
+  let taskHeadingEdit = ticket.querySelector(".ticket-heading");
+
   let taskArea = ticket.querySelector(".ticket-task");
+
+  let ticketPriority = ticket.querySelector(".ticket-id");
+
+  let ticketPriorityColor = ["Lightpink", "Lightgreen", "Lightblue", "submit"];
 
   ticketLockIcon.addEventListener("click", (event) => {
     if (ticketLockIcon.classList.contains(lockIconClass)) {
@@ -170,15 +176,31 @@ function handleLock(ticket) {
       ticketLockIcon.classList.remove(lockIconClass);
       //add unlock icon class "fa-lock-open"
       ticketLockIcon.classList.add(unclokIconClass);
-      //Makr task area Editable
+      //Make Heading editable
+      taskHeadingEdit.setAttribute("contenteditable", "true");
+      //Make task area Editable
       taskArea.setAttribute("contenteditable", "true");
+
+      //Change Ticket Color on click
+      // ticketPriority.addEventListener("click", (priorityEvent) => {
+      //   console.log("ticket Color Change is clicked");
+      // });
     } else {
       //remove unlock icon class "fa-lock-opn"
       ticketLockIcon.classList.remove(unclokIconClass);
       //add Lock icon class "fa-lock"
       ticketLockIcon.classList.add(lockIconClass);
-      //Makr task area Editable
+      //Make Heading Uneditable
+      taskHeadingEdit.setAttribute("contenteditable", "false");
+      //Makr task area Uneditable
       taskArea.setAttribute("contenteditable", "false");
+
+      //Change Ticket Color on click
+      // ticketPriority.addEventListener("click", (priorityEvent) => {
+      //   console.log("in Lock class");
+      //   priorityEvent.stopPropagation();
+      //   priorityEvent.preventDefault();
+      // });
     }
   });
 }
