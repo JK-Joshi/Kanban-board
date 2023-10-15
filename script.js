@@ -12,6 +12,9 @@ let toolBoxCont = document.querySelector(".toolBox-cont");
 let iconBars = document.querySelector(".fa-solid");
 let activeDltBtn = document.querySelector(".active-dlt-btn");
 let barsChange = document.querySelector(".bars");
+let ticketArray = [];
+let filteredTickets = [];
+let filterHeading = document.querySelector(".task-heading-cont");
 
 let taskNumber = 0;
 let bars = "fa-bars";
@@ -20,6 +23,9 @@ let lockIconClass = "fa-lock";
 let unclokIconClass = "fa-lock-open";
 
 let removeFlag = false;
+
+let colors = ["Blue", "Lightpink", "Lightgreen", "Lightblue"];
+
 //Showing and Hiding Modal
 let modalFlag = false;
 addBtn.addEventListener("click", function (event) {
@@ -62,7 +68,7 @@ let submit = document.querySelector(".submit");
 
 submit.addEventListener("click", (event) => {
   let ticketDesc = taskDesc.value;
-  let ticketId = taskNumber + 1;
+  let ticketId = shortid();
   let ticketHeading = taskHeading.value;
   //console.log(ticketHeading, ticketDesc);
   if (ticketDesc === "") {
@@ -74,7 +80,7 @@ submit.addEventListener("click", (event) => {
   if (modalColorName === "") {
     alert("Pl. Select any of the color catagory");
   }
-  createTicket(modalColorName, ticketHeading, ticketId, ticketDesc);
+  createTicket(modalColorName, ticketHeading, ticketDesc);
   //close the Modal
   modalCont.style.display = "none";
   modalFlag = !modalFlag;
@@ -84,12 +90,14 @@ submit.addEventListener("click", (event) => {
   taskDesc.value = "";
 });
 
-function createTicket(ticketColor, ticketHeading, ticketId, ticketDesc) {
+function createTicket(ticketColor, ticketHeading, ticketDesc, ticketId) {
+  let id = ticketId || shortid();
+
   let ticketCont = document.createElement("div");
 
   ticketCont.classList.add("ticket-cont");
 
-  ticketCont.innerHTML = `<div class=" ${ticketColor} ticket-id">${ticketId}</div>
+  ticketCont.innerHTML = `<div class="ticket-id ${ticketColor}">${id}</div>
   <div class="ticket-heading">${ticketHeading}</div>
   <div class="ticket-task">${ticketDesc}</div><div class="ticket-lock">
   <i class="fa-lock fa-solid"></i>
@@ -98,8 +106,21 @@ function createTicket(ticketColor, ticketHeading, ticketId, ticketDesc) {
   // console.log(ticketCont);
   mainCont.appendChild(ticketCont);
 
+  let ticketMetaData = {
+    ticketColor,
+    ticketHeading,
+    ticketId: id,
+    ticketDesc,
+  };
+
+  if (!ticketId) {
+    ticketArray.push(ticketMetaData);
+    // console.log(ticketArray);
+  }
+
   handleRemove(ticketCont);
   handleLock(ticketCont);
+  handlePriority(ticketCont);
   // handleFilter(ticketColor);
 }
 
@@ -166,10 +187,6 @@ function handleLock(ticket) {
 
   let taskArea = ticket.querySelector(".ticket-task");
 
-  let ticketPriority = ticket.querySelector(".ticket-id");
-
-  let ticketPriorityColor = ["Lightpink", "Lightgreen", "Lightblue", "submit"];
-
   ticketLockIcon.addEventListener("click", (event) => {
     if (ticketLockIcon.classList.contains(lockIconClass)) {
       //remove Lock icon class "fa-lock"
@@ -180,11 +197,6 @@ function handleLock(ticket) {
       taskHeadingEdit.setAttribute("contenteditable", "true");
       //Make task area Editable
       taskArea.setAttribute("contenteditable", "true");
-
-      //Change Ticket Color on click
-      // ticketPriority.addEventListener("click", (priorityEvent) => {
-      //   console.log("ticket Color Change is clicked");
-      // });
     } else {
       //remove unlock icon class "fa-lock-opn"
       ticketLockIcon.classList.remove(unclokIconClass);
@@ -194,13 +206,110 @@ function handleLock(ticket) {
       taskHeadingEdit.setAttribute("contenteditable", "false");
       //Makr task area Uneditable
       taskArea.setAttribute("contenteditable", "false");
-
-      //Change Ticket Color on click
-      // ticketPriority.addEventListener("click", (priorityEvent) => {
-      //   console.log("in Lock class");
-      //   priorityEvent.stopPropagation();
-      //   priorityEvent.preventDefault();
-      // });
     }
+
+    //Updating ticket array state with new Heading
+    let ticketId = ticket.children[0];
+
+    ticketArray.forEach((ticket) => {
+      if (ticket.ticketId == ticketId.innerText) {
+        ticket.ticketHeading.innerText = taskHeadingEdit.value;
+      }
+    });
+    console.log(ticketArray);
   });
 }
+
+//Handle Priority Colors
+
+function handlePriority(ticket) {
+  let ticketPriority = ticket.querySelector(".ticket-id");
+  ticketPriority.addEventListener("click", () => {
+    // console.log("Color pallet clicked");
+    let currentColor = ticketPriority.classList[1];
+    // console.log(currentColor + "Color Clicked");
+
+    let currentColorIndex = colors.findIndex((color) => {
+      return color == currentColor;
+    });
+
+    currentColorIndex++;
+
+    let newColorIndex = currentColorIndex % colors.length;
+    let newColor = colors[newColorIndex];
+
+    //remov Current color
+    ticketPriority.classList.remove(currentColor);
+
+    //Add new color
+    ticketPriority.classList.add(newColor);
+
+    //Updating ticket array state with new color
+    let ticketId = ticket.children[0];
+
+    ticketArray.forEach((ticket) => {
+      if (ticket.ticketId == ticketId.innerText) {
+        ticket.ticketColor = newColor;
+      }
+    });
+    console.log(ticketArray);
+  });
+}
+
+//Filter tikets
+let selectedColor;
+filterColor.forEach((color) => {
+  color.addEventListener("click", (event) => {
+    selectedColor = color.classList[0];
+    // console.log(selectedColor);
+
+    filteredTickets = ticketArray.filter((ticket) => {
+      return ticket.ticketColor == selectedColor;
+    });
+
+    // console.log(filteredTickets);
+    console.log(ticketArray);
+
+    //remove all tickets
+    let allTickets = document.querySelectorAll(".ticket-cont");
+
+    allTickets.forEach((ticket) => {
+      ticket.remove();
+    });
+
+    //Re-create filtered tickets
+    filteredTickets.forEach((ticket) => {
+      createTicket(
+        ticket.ticketColor,
+        ticket.ticketHeading,
+        ticket.ticketId,
+        ticket.ticketDesc
+      );
+    });
+
+    //Chang fiter heading
+    filterHeading.innerText = color.innerText;
+  });
+});
+
+//Showing all task with double click
+filterColor.forEach((color) => {
+  color.addEventListener("dblclick", (event) => {
+    let allTickets = document.querySelectorAll(".ticket-cont");
+
+    allTickets.forEach((ticket) => {
+      ticket.remove();
+    });
+
+    ticketArray.forEach((ticket) => {
+      createTicket(
+        ticket.ticketColor,
+        ticket.ticketHeading,
+        ticket.ticketId,
+        ticket.ticketDesc
+      );
+    });
+
+    filterHeading.innerText = "All Tasks";
+  });
+});
